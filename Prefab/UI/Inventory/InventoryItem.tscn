@@ -1,0 +1,135 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Font/UIFontSmall.tres" type="Theme" id=1]
+[ext_resource path="res://Scripts/UI/Inventory/InventoryItem.gd" type="Script" id=2]
+[ext_resource path="res://Font/UIFontInventoryNumber.tres" type="Theme" id=3]
+[ext_resource path="res://Font/UIFontInventory.tres" type="Theme" id=4]
+[ext_resource path="res://Font/UIFontInventoryTPS.tres" type="Theme" id=5]
+
+[sub_resource type="Animation" id=1]
+resource_name = "Add"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("VBoxContainer:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 0.937255, 0.945098, 0, 1 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("VBoxContainer/Amount:rect_position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 12 ), Vector2( 0, 19 ) ]
+}
+
+[sub_resource type="Animation" id=2]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("VBoxContainer:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("VBoxContainer/Amount:rect_position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 19 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "Remove"
+tracks/0/type = "value"
+tracks/0/path = NodePath("VBoxContainer:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("VBoxContainer/Amount:rect_position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 26 ), Vector2( 0, 19 ) ]
+}
+
+[node name="Item" type="Label"]
+margin_right = 59.0
+margin_bottom = 14.0
+rect_min_size = Vector2( 220, 60 )
+theme = ExtResource( 1 )
+script = ExtResource( 2 )
+
+[node name="Panel" type="Panel" parent="."]
+margin_right = 150.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 220, 60 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="Name" type="Label" parent="VBoxContainer"]
+margin_right = 108.0
+margin_bottom = 15.0
+rect_min_size = Vector2( 50, 0 )
+theme = ExtResource( 4 )
+text = "Name"
+
+[node name="Amount" type="Label" parent="VBoxContainer"]
+margin_top = 19.0
+margin_right = 108.0
+margin_bottom = 33.0
+rect_min_size = Vector2( 3, 0 )
+theme = ExtResource( 3 )
+text = "x3"
+
+[node name="TPS" type="Label" parent="VBoxContainer"]
+margin_top = 37.0
+margin_right = 108.0
+margin_bottom = 46.0
+rect_min_size = Vector2( 3, 0 )
+theme = ExtResource( 5 )
+text = "3 per second"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Add = SubResource( 1 )
+anims/RESET = SubResource( 2 )
+anims/Remove = SubResource( 3 )

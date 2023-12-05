@@ -1,0 +1,906 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Prefab/UI/Slimes/JobButton.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scripts/UI/Slimes/SlimeAssignPanel.gd" type="Script" id=2]
+[ext_resource path="res://Font/UIFont.tres" type="Theme" id=3]
+[ext_resource path="res://Scripts/Upgrades/Upgrade.gd" type="Script" id=4]
+[ext_resource path="res://Scripts/Upgrades/Upgradeable.gd" type="Script" id=5]
+[ext_resource path="res://Prefab/UI/Slimes/ConvertJobButton.tscn" type="PackedScene" id=6]
+
+[node name="SlimeAssignPanel" type="Panel" groups=["SlimeAssignPanel"]]
+margin_right = 490.0
+margin_bottom = 586.0
+script = ExtResource( 2 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_left = 0.092
+anchor_top = 0.028
+anchor_right = 0.101
+anchor_bottom = 0.028
+margin_right = 400.0
+margin_bottom = 198.0
+custom_constants/separation = 9
+
+[node name="CloseButton" type="Button" parent="VBoxContainer"]
+margin_right = 404.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 40, 20 )
+theme = ExtResource( 3 )
+text = "CLOSE"
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+margin_top = 29.0
+margin_right = 404.0
+margin_bottom = 40.0
+theme = ExtResource( 3 )
+text = "Assign Job to: "
+
+[node name="SlimeName" type="Label" parent="VBoxContainer"]
+margin_top = 49.0
+margin_right = 404.0
+margin_bottom = 60.0
+theme = ExtResource( 3 )
+text = "SlimeName"
+
+[node name="SlimeCurrent" type="Label" parent="VBoxContainer"]
+margin_top = 69.0
+margin_right = 404.0
+margin_bottom = 80.0
+theme = ExtResource( 3 )
+text = "Currently: "
+
+[node name="ButtonsContainer" type="HBoxContainer" parent="VBoxContainer"]
+margin_top = 89.0
+margin_right = 404.0
+margin_bottom = 119.0
+rect_min_size = Vector2( 0, 30 )
+
+[node name="ResourceGatheringButton" type="Button" parent="VBoxContainer/ButtonsContainer"]
+margin_right = 137.0
+margin_bottom = 30.0
+text = "Resource Gathering"
+
+[node name="DustingButton" type="Button" parent="VBoxContainer/ButtonsContainer"]
+margin_left = 141.0
+margin_right = 202.0
+margin_bottom = 30.0
+text = "Dusting"
+
+[node name="CraftingButton" type="Button" parent="VBoxContainer/ButtonsContainer"]
+margin_left = 206.0
+margin_right = 266.0
+margin_bottom = 30.0
+text = "Crafting"
+
+[node name="Filters" type="Node2D" parent="VBoxContainer"]
+position = Vector2( 0, 128 )
+
+[node name="DustingList" type="ScrollContainer" parent="VBoxContainer/Filters"]
+margin_right = 404.0
+margin_bottom = 400.0
+rect_min_size = Vector2( 404, 400 )
+
+[node name="Jobs" type="VBoxContainer" parent="VBoxContainer/Filters/DustingList"]
+margin_right = 404.0
+margin_bottom = 584.0
+rect_min_size = Vector2( 404, 216 )
+
+[node name="ConvertWoodToDust" parent="VBoxContainer/Filters/DustingList/Jobs" instance=ExtResource( 6 )]
+margin_right = 404.0
+margin_bottom = 80.0
+JobName = "Convert Wood To Dust"
+Duration = 2
+InnerJobName = "DustWood"
+RewardType = 6
+Amount = 1
+InResourceAmount = 3
+
+[node name="ConvertMushroomToDust" parent="VBoxContainer/Filters/DustingList/Jobs" instance=ExtResource( 6 )]
+margin_top = 84.0
+margin_right = 404.0
+margin_bottom = 164.0
+JobName = "Convert Mushroom To Dust"
+Duration = 2
+InnerJobName = "DustMushroom"
+RewardType = 6
+Amount = 1
+InResourceType = 3
+InResourceAmount = 4
+
+[node name="ConvertStoneToDust" parent="VBoxContainer/Filters/DustingList/Jobs" instance=ExtResource( 6 )]
+margin_top = 168.0
+margin_right = 404.0
+margin_bottom = 248.0
+JobName = "Convert Stone to Dust"
+Duration = 2
+InnerJobName = "DustStone"
+RewardType = 6
+Amount = 1
+InResourceType = 1
+InResourceAmount = 2
+
+[node name="ConvertGravelToDust" parent="VBoxContainer/Filters/DustingList/Jobs" instance=ExtResource( 6 )]
+margin_top = 252.0
+margin_right = 404.0
+margin_bottom = 332.0
+JobName = "Convert Gravel to Dust"
+Duration = 2
+InnerJobName = "DustGravel"
+RewardType = 6
+Amount = 1
+InResourceType = 2
+
+[node name="ConvertSmallFishToDust" parent="VBoxContainer/Filters/DustingList/Jobs" instance=ExtResource( 6 )]
+margin_top = 336.0
+margin_right = 404.0
+margin_bottom = 416.0
+JobName = "Convert Smallfish to Dust"
+Duration = 2
+InnerJobName = "DustSmallFish"
+RewardType = 6
+Amount = 1
+InResourceType = 4
+
+[node name="ConvertPaperToDust" parent="VBoxContainer/Filters/DustingList/Jobs" instance=ExtResource( 6 )]
+margin_top = 420.0
+margin_right = 404.0
+margin_bottom = 500.0
+JobName = "Convert Paper to Dust"
+Duration = 2
+InnerJobName = "DustPaper"
+RewardType = 6
+Amount = 8
+InResourceType = 5
+
+[node name="ConvertCutStoneToDust" parent="VBoxContainer/Filters/DustingList/Jobs" instance=ExtResource( 6 )]
+margin_top = 504.0
+margin_right = 404.0
+margin_bottom = 584.0
+JobName = "Convert Stone to Dust"
+Duration = 2
+InnerJobName = "DustCutStone"
+RewardType = 6
+Amount = 8
+InResourceType = 7
+
+[node name="CraftingList" type="ScrollContainer" parent="VBoxContainer/Filters"]
+margin_right = 404.0
+margin_bottom = 400.0
+rect_min_size = Vector2( 216, 400 )
+
+[node name="Jobs" type="VBoxContainer" parent="VBoxContainer/Filters/CraftingList"]
+margin_right = 404.0
+margin_bottom = 416.0
+rect_min_size = Vector2( 404, 216 )
+
+[node name="ConvertWoodToPaper" parent="VBoxContainer/Filters/CraftingList/Jobs" instance=ExtResource( 6 )]
+margin_right = 404.0
+margin_bottom = 80.0
+JobName = "Convert Wood To Paper"
+Duration = 2
+InnerJobName = "Paper"
+RewardType = 5
+Amount = 1
+InResourceAmount = 5
+
+[node name="Upgradeable" type="Node2D" parent="VBoxContainer/Filters/CraftingList/Jobs/ConvertWoodToPaper"]
+script = ExtResource( 5 )
+
+[node name="HelpSlime" type="Node2D" parent="VBoxContainer/Filters/CraftingList/Jobs/ConvertWoodToPaper/Upgradeable"]
+script = ExtResource( 4 )
+UpgradeTitle = "Help Booky Slime"
+UpgradeDescription = "Booky Slime needs papers!"
+RequirementType = [ 5 ]
+RequirementAmount = [ 20 ]
+TechCommand1 = 3
+TechCommand2 = "Booky"
+
+[node name="ConvertStoneToCutStone" parent="VBoxContainer/Filters/CraftingList/Jobs" instance=ExtResource( 6 )]
+margin_top = 84.0
+margin_right = 404.0
+margin_bottom = 164.0
+JobName = "Convert Stone to CutStone"
+Duration = 2
+InnerJobName = "CutStone"
+RewardType = 7
+Amount = 1
+InResourceType = 1
+InResourceAmount = 3
+
+[node name="ConvertDustToGravel" parent="VBoxContainer/Filters/CraftingList/Jobs" instance=ExtResource( 6 )]
+margin_top = 168.0
+margin_right = 404.0
+margin_bottom = 248.0
+JobName = "Convert Dust To Gravel"
+Duration = 2
+InnerJobName = "ToGravel"
+RewardType = 2
+Amount = 1
+InResourceType = 6
+InResourceAmount = 5
+
+[node name="ConvertDustToPaper" parent="VBoxContainer/Filters/CraftingList/Jobs" instance=ExtResource( 6 )]
+margin_top = 252.0
+margin_right = 404.0
+margin_bottom = 332.0
+JobName = "Convert Dust To Paper"
+Duration = 2
+InnerJobName = "ToPaper"
+RewardType = 5
+Amount = 1
+InResourceType = 6
+InResourceAmount = 8
+
+[node name="ConvertDustToCutStone" parent="VBoxContainer/Filters/CraftingList/Jobs" instance=ExtResource( 6 )]
+margin_top = 336.0
+margin_right = 404.0
+margin_bottom = 416.0
+JobName = "Convert Dust To CutStone"
+Duration = 2
+InnerJobName = "ToCutStone"
+RewardType = 7
+Amount = 1
+InResourceType = 6
+InResourceAmount = 8
+
+[node name="ResourceList" type="ScrollContainer" parent="VBoxContainer/Filters"]
+margin_right = 404.0
+margin_bottom = 400.0
+rect_min_size = Vector2( 216, 400 )
+
+[node name="Jobs" type="VBoxContainer" parent="VBoxContainer/Filters/ResourceList"]
+margin_right = 400.0
+margin_bottom = 216.0
+
+[node name="CollectWood" parent="VBoxContainer/Filters/ResourceList/Jobs" instance=ExtResource( 1 )]
+margin_right = 400.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 400, 40 )
+JobName = "Collect Wood"
+InnerJobName = "Wood"
+Amount = 1
+
+[node name="Upgradeable" type="Node2D" parent="VBoxContainer/Filters/ResourceList/Jobs/CollectWood"]
+script = ExtResource( 5 )
+
+[node name="Lv1" type="Node2D" parent="VBoxContainer/Filters/ResourceList/Jobs/CollectWood/Upgradeable"]
+script = ExtResource( 4 )
+UpgradeTitle = "Wood Mastery I"
+UpgradeDescription = "Collect Wood Faster"
+RequirementType = [ 0 ]
+RequirementAmount = [ 10 ]
+TechCommand1 = 1
+TechCommand2 = "Wood"
+
+[node name="UnlockStone" type="Node2D" parent="VBoxContainer/Filters/ResourceList/Jobs/CollectWood/Upgradeable"]
+script = ExtResource( 4 )
+UpgradeTitle = "Research Stone Cutting"
+UpgradeDescription = "Learn how to cut some stone!"
+RequirementType = [ 0 ]
+RequirementAmount = [ 15 ]
+TechCommand2 = "Stone"
+
+[node name="Lv2" type="Node2D" parent="VBoxContainer/Filters/ResourceList/Jobs/CollectWood/Upgradeable"]
+script = ExtResource( 4 )
+UpgradeTitle = "Wood Mastery II"
+UpgradeDescription = "Collect Wood Faster"
+RequirementType = [ 0 ]
+RequirementAmount = [ 45 ]
+TechCommand1 = 1
+TechCommand2 = "Wood"
+
+[node name="Lv3" type="Node2D" parent="VBoxContainer/Filters/ResourceList/Jobs/CollectWood/Upgradeable"]
+script = ExtResource( 4 )
+UpgradeTitle = "Wood Mastery III"
+UpgradeDescription = "Collect Wood Faster"
+RequirementType = [ 0 ]
+RequirementAmount = [ 60 ]
+TechCommand1 = 1
+TechCommand2 = "Wood"
+
+[node name="UnlockFishing" type="Node2D" parent="VBoxContainer/Filters/ResourceList/Jobs/CollectWood/Upgradeable"]
+script = ExtResource( 4 )
+UpgradeTitle = "Research Fishing"
+UpgradeDescription = "Learn how to fish"
+RequirementType = [ 0 ]
+RequirementAmount = [ 60 ]
+TechCommand2 = "SmallFish"
+
+[node name="Lv4" type="Node2D" parent="VBoxContainer/Filters/ResourceList/Jobs/CollectWood/Upgradeable"]
+script = ExtResource( 4 )
+UpgradeTitle = "Wood Mastery IV"
+UpgradeDescription = "Collect Wood Faster"
+RequirementType = [ 0 ]
+RequirementAmount = [ 80 ]
+TechCommand1 = 1
+TechCommand2 = "Wood"
+
+[node name="UnlockPaper" type="Node2D" parent="VBoxContainer/Filters/ResourceList/Jobs/CollectWood/Upgradeable"]
+script = ExtResource( 4 )
+UpgradeTitle = "Research Paper"
+UpgradeDescription = "Learn how to craft paper"
+RequirementType = [ 0 ]
+RequirementAmount = [ 75 ]
+TechCommand2 = "Paper"
+
+[node name="Lv5" type="Node2D" parent="VBoxContainer/Filters/ResourceList/Jobs/CollectWood/Upgradeable"]
+script = ExtResource( 4 )
+UpgradeTitle = "Wood Mastery V"
+UpgradeDescription = "Collect Wood Faster"
+RequirementType = [ 0 ]
+RequirementAmount = [ 120 ]
+TechCommand1 = 1
+TechCommand2 = "Wood"
+
+[node name="Lv6" type="Node2D" parent="VBoxContainer/Filters/ResourceList/Jobs/CollectWood/Upgradeable"]
+script = ExtResource( 4 )
+UpgradeTitle = "Wood Mastery VI"
+UpgradeDescription = "Collect Wood Faster"
+RequirementType = [ 0 ]
+RequirementAmount = [ 150 ]
+TechCommand1 = 1
+TechCommand2 = "Wood"
+
+[node name="Lv7" type="Node2D" parent="VBoxContainer/Filters/ResourceList/Jobs/CollectWood/Upgradeable"]
+script = ExtResource( 4 )
+UpgradeTitle = "Wood Mastery VII"
+UpgradeDescription = "Collect Wood Faster"
+RequirementType = [ 0 ]
+RequirementAmount = [ 200 ]
+TechCommand1 = 1
+TechCommand2 = "Wood"
+
+[node name="Lv8" type="Node2D" parent="VBoxContainer/Filters/ResourceList/Jobs/CollectWood/Upgradeable"]
+script = ExtResource( 4 )
+UpgradeTitle = "Wood Mastery VIII"
+UpgradeDescription = "Collect Wood Faster"
+RequirementType = [ 0 ]
+RequirementAmount = [ 400 ]
+TechCommand1 = 1
+TechCommand2 = "Wood"
+
+[node name="Lv9" type="Node2D" parent="VBoxContainer/Filters/ResourceList/Jobs/CollectWood/Upgradeable"]
+script = ExtResource( 4 )
+UpgradeTitle = "Wood Mastery IX"
+UpgradeDescription = "Collect Wood Faster"
+RequirementType = [ 0 ]
+RequirementAmount = [ 475 ]
+TechCommand1 = 1
+TechCommand2 = "Wood"
+
+[node name="Lv10" type="Node2D" parent="VBoxContainer/Filters/ResourceList/Jobs/CollectWood/Upgradeable"]
+script = ExtResource( 4 )
+UpgradeTitle = "Wood Mastery X"
+UpgradeDescription = "Collect Wood Faster"
+RequirementType = [ 0 ]
+RequirementAmount = [ 600 ]
+TechCommand1 = 1
+TechCommand2 = "Wood"
+
+[node name="CollectStone" parent="VBoxContainer/Filters/ResourceList/Jobs" instance=ExtResource( 1 )]
+margin_top = 44.0
+margin_right = 400.0
+margin_bottom = 84.0
+rect_min_size = Vector2( 400, 40 )
+JobName = "Collect Stone"
+InnerJobName = "Stone"
+RewardType = 1
+Amount = 1
+
+[node name="Upgradeable" type="Node2D" parent="VBoxContainer/Filters/ResourceList/Jobs/CollectStone"]
+script = ExtResource( 5 )
+
+[node name="Lv1" type="Node2D" parent="VBoxContainer/Filters/ResourceList/Jobs/CollectStone/Upgradeable"]
+script = ExtResource( 4 )
+UpgradeTitle = "Stone Mastery I"
+UpgradeDescription = "Collect Stone Faster"
+RequirementType = [ 1 ]
+RequirementAmount = [ 10 ]
+TechCommand1 = 1
+TechCommand2 = "Stone"
+
+[node name="UnlockGravel" type="Node2D" parent="VBoxContainer/Filters/ResourceList/Jobs/CollectStone/Upgradeable"]
+script = ExtResource( 4 )
+UpgradeTitle = "Research Gravel"
+UpgradeDescription = "Learn how to collect gravel"
+RequirementType = [ 1 ]
+RequirementAmount = [ 18 ]
+TechCommand2 = "Gravel"
+
+[node name="Lv2" type="Node2D" parent="VBoxContainer/Filters/ResourceList/Jobs/CollectStone/Upgradeable"]
+script = ExtResource( 4 )
+UpgradeTitle = "Stone Mastery II"
+UpgradeDescription = "Collect Stone Faster"
+RequirementType = [ 1 ]
+RequirementAmount = [ 25 ]
+TechCommand1 = 1
+TechCommand2 = "Stone"
+
+[node name="Lv3" type="Node2D" parent="VBoxContainer/Filters/ResourceList/Jobs/CollectStone/Upgradeable"]
+script = ExtResource( 4 )
+UpgradeTitle = "Stone Mastery III"
+UpgradeDescription = "Collect Stone Faster"
+RequirementType = [ 1 ]
+RequirementAmount = [ 40 ]
+TechCommand1 = 1
+TechCommand2 = "Stone"
+
+[node name="Lv4" type="Node2D" parent="VBoxContainer/Filters/ResourceList/Jobs/CollectStone/Upgradeable"]
+script = ExtResource( 4 )
+UpgradeTitle = "Stone Mastery IV"
+UpgradeDescription = "Collect Stone Faster"
+RequirementType = [ 1 ]
+RequirementAmount = [ 60 ]
+TechCommand1 = 1
+TechCommand2 = "Stone"
+
+[node name="Lv5" type="Node2D" parent="VBoxContainer/Filters/ResourceList/Jobs/CollectStone/Upgradeable"]
+script = ExtResource( 4 )
+UpgradeTitle = "Stone Mastery V"
+UpgradeDescription = "Collect Stone Faster"
+RequirementType = [ 1 ]
+RequirementAmount = [ 80 ]
+TechCommand1 = 1
+TechCommand2 = "Stone"
+
+[node name="UnlockGravel2" type="Node2D" parent="VBoxContainer/Filters/ResourceList/Jobs/CollectStone/Upgradeable"]
+script = ExtResource( 4 )
+UpgradeTitle = "Research CutStone"
+UpgradeDescription = "Learn how to Craft CutStone"
+RequirementType = [ 1 ]
+RequirementAmount = [ 100 ]
+TechCommand2 = "CutStone"
+
+[node name="HelpSlime" type="Node2D" parent="VBoxContainer/Filters/ResourceList/Jobs/CollectStone/Upgradeable"]
+script = ExtResource( 4 )
+UpgradeTitle = "Help Stoney Slime"
+UpgradeDescription = "Help Stoney Slime"
+RequirementType = [ 1 ]
+RequirementAmount = [ 25 ]
+TechCommand1 = 3
+TechCommand2 = "Stoney"
+
+[node name="Lv6" type="Node2D" parent="VBoxContainer/Filters/ResourceList/Jobs/CollectStone/Upgradeable"]
+script = ExtResource( 4 )
+UpgradeTitle = "Stone Mastery VI"
+UpgradeDescription = "Collect Stone Faster"
+RequirementType = [ 1 ]
+RequirementAmount = [ 100 ]
+TechCommand1 = 1
+TechCommand2 = "Stone"
+
+[node name="Lv7" type="Node2D" parent="VBoxContainer/Filters/ResourceList/Jobs/CollectStone/Upgradeable"]
+script = ExtResource( 4 )
+UpgradeTitle = "Stone Mastery VII"
+UpgradeDescription = "Collect Stone Faster"
+RequirementType = [ 1 ]
+RequirementAmount = [ 120 ]
+TechCommand1 = 1
+TechCommand2 = "Stone"
+
+[node name="Lv8" type="Node2D" parent="VBoxContainer/Filters/ResourceList/Jobs/CollectStone/Upgradeable"]
+script = ExtResource( 4 )
+UpgradeTitle = "Stone Mastery VIII"
+UpgradeDescription = "Collect Stone Faster"
+RequirementType = [ 1 ]
+RequirementAmount = [ 150 ]
+TechCommand1 = 1
+TechCommand2 = "Stone"
+
+[node name="Lv9" type="Node2D" parent="VBoxContainer/Filters/ResourceList/Jobs/CollectStone/Upgradeable"]
+script = ExtResource( 4 )
+UpgradeTitle = "Stone Mastery IX"
+UpgradeDescription = "Collect Stone Faster"
+RequirementType = [ 1 ]
+RequirementAmount = [ 180 ]
+TechCommand1 = 1
+TechCommand2 = "Stone"
+
+[node name="Lv10" type="Node2D" parent="VBoxContainer/Filters/ResourceList/Jobs/CollectStone/Upgradeable"]
+script = ExtResource( 4 )
+UpgradeTitle = "Stone Mastery X"
+UpgradeDescription = "Collect Stone Faster"
+RequirementType = [ 1 ]
+RequirementAmount = [ 200 ]
+TechCommand1 = 1
+TechCommand2 = "Stone"
+
+[node name="Lv11" type="Node2D" parent="VBoxContainer/Filters/ResourceList/Jobs/CollectStone/Upgradeable"]
+script = ExtResource( 4 )
+UpgradeTitle = "Stone Mastery XI"
+UpgradeDescription = "Collect Stone Faster"
+RequirementType = [ 1 ]
+RequirementAmount = [ 250 ]
+TechCommand1 = 1
+TechCommand2 = "Stone"
+
+[node name="Lv12" type="Node2D" parent="VBoxContainer/Filters/ResourceList/Jobs/CollectStone/Upgradeable"]
+script = ExtResource( 4 )
+UpgradeTitle = "Stone Mastery XII"
+UpgradeDescription = "Collect Stone Faster"
+RequirementType = [ 1 ]
+RequirementAmount = [ 275 ]
+TechCommand1 = 1
+TechCommand2 = "Stone"
+
+[node name="Lv13" type="Node2D" parent="VBoxContainer/Filters/ResourceList/Jobs/CollectStone/Upgradeable"]
+script = ExtResource( 4 )
+UpgradeTitle = "Stone Mastery XIII"
+UpgradeDescription = "Collect Stone Faster"
+RequirementType = [ 1 ]
+RequirementAmount = [ 300 ]
+TechCommand1 = 1
+TechCommand2 = "Stone"
+
+[node name="CollectGravel" parent="VBoxContainer/Filters/ResourceList/Jobs" instance=ExtResource( 1 )]
+margin_top = 88.0
+margin_right = 400.0
+margin_bottom = 128.0
+rect_min_size = Vector2( 400, 40 )
+JobName = "Collect Gravel"
+Duration = 8
+InnerJobName = "Gravel"
+RewardType = 2
+Amount = 1
+
+[node name="Upgradeable" type="Node2D" parent="VBoxContainer/Filters/ResourceList/Jobs/CollectGravel"]
+script = ExtResource( 5 )
+
+[node name="Lv1" type="Node2D" parent="VBoxContainer/Filters/ResourceList/Jobs/CollectGravel/Upgradeable"]
+script = ExtResource( 4 )
+UpgradeTitle = "Gravel Mastery I"
+UpgradeDescription = "Collect Gravel Faster"
+RequirementType = [ 2 ]
+RequirementAmount = [ 10 ]
+TechCommand1 = 1
+TechCommand2 = "Gravel"
+
+[node name="Lv2" type="Node2D" parent="VBoxContainer/Filters/ResourceList/Jobs/CollectGravel/Upgradeable"]
+script = ExtResource( 4 )
+UpgradeTitle = "Gravel Mastery II"
+UpgradeDescription = "Collect Gravel Faster"
+RequirementType = [ 2 ]
+RequirementAmount = [ 25 ]
+TechCommand1 = 1
+TechCommand2 = "Gravel"
+
+[node name="Lv3" type="Node2D" parent="VBoxContainer/Filters/ResourceList/Jobs/CollectGravel/Upgradeable"]
+script = ExtResource( 4 )
+UpgradeTitle = "Gravel Mastery III"
+UpgradeDescription = "Collect Gravel Faster"
+RequirementType = [ 2 ]
+RequirementAmount = [ 50 ]
+TechCommand1 = 1
+TechCommand2 = "Gravel"
+
+[node name="Lv4" type="Node2D" parent="VBoxContainer/Filters/ResourceList/Jobs/CollectGravel/Upgradeable"]
+script = ExtResource( 4 )
+UpgradeTitle = "Gravel Mastery IV"
+UpgradeDescription = "Collect Gravel Faster"
+RequirementType = [ 2 ]
+RequirementAmount = [ 80 ]
+TechCommand1 = 1
+TechCommand2 = "Gravel"
+
+[node name="Lv5" type="Node2D" parent="VBoxContainer/Filters/ResourceList/Jobs/CollectGravel/Upgradeable"]
+script = ExtResource( 4 )
+UpgradeTitle = "Gravel Mastery V"
+UpgradeDescription = "Collect Gravel Faster"
+RequirementType = [ 2 ]
+RequirementAmount = [ 100 ]
+TechCommand1 = 1
+TechCommand2 = "Gravel"
+
+[node name="Lv6" type="Node2D" parent="VBoxContainer/Filters/ResourceList/Jobs/CollectGravel/Upgradeable"]
+script = ExtResource( 4 )
+UpgradeTitle = "Gravel Mastery VI"
+UpgradeDescription = "Collect Gravel Faster"
+RequirementType = [ 2 ]
+RequirementAmount = [ 120 ]
+TechCommand1 = 1
+TechCommand2 = "Gravel"
+
+[node name="Lv7" type="Node2D" parent="VBoxContainer/Filters/ResourceList/Jobs/CollectGravel/Upgradeable"]
+script = ExtResource( 4 )
+UpgradeTitle = "Gravel Mastery VII"
+UpgradeDescription = "Collect Gravel Faster"
+RequirementType = [ 2 ]
+RequirementAmount = [ 180 ]
+TechCommand1 = 1
+TechCommand2 = "Gravel"
+
+[node name="Lv8" type="Node2D" parent="VBoxContainer/Filters/ResourceList/Jobs/CollectGravel/Upgradeable"]
+script = ExtResource( 4 )
+UpgradeTitle = "Gravel Mastery VIII"
+UpgradeDescription = "Collect Gravel Faster"
+RequirementType = [ 2 ]
+RequirementAmount = [ 220 ]
+TechCommand1 = 1
+TechCommand2 = "Gravel"
+
+[node name="Lv9" type="Node2D" parent="VBoxContainer/Filters/ResourceList/Jobs/CollectGravel/Upgradeable"]
+script = ExtResource( 4 )
+UpgradeTitle = "Gravel Mastery IX"
+UpgradeDescription = "Collect Gravel Faster"
+RequirementType = [ 2 ]
+RequirementAmount = [ 300 ]
+TechCommand1 = 1
+TechCommand2 = "Gravel"
+
+[node name="Lv10" type="Node2D" parent="VBoxContainer/Filters/ResourceList/Jobs/CollectGravel/Upgradeable"]
+script = ExtResource( 4 )
+UpgradeTitle = "Gravel Mastery X"
+UpgradeDescription = "Collect Gravel Faster"
+RequirementType = [ 2 ]
+RequirementAmount = [ 400 ]
+TechCommand1 = 1
+TechCommand2 = "Gravel"
+
+[node name="Lv11" type="Node2D" parent="VBoxContainer/Filters/ResourceList/Jobs/CollectGravel/Upgradeable"]
+script = ExtResource( 4 )
+UpgradeTitle = "Gravel Mastery XI"
+UpgradeDescription = "Collect Gravel Faster"
+RequirementType = [ 2 ]
+RequirementAmount = [ 425 ]
+TechCommand1 = 1
+TechCommand2 = "Gravel"
+
+[node name="Lv12" type="Node2D" parent="VBoxContainer/Filters/ResourceList/Jobs/CollectGravel/Upgradeable"]
+script = ExtResource( 4 )
+UpgradeTitle = "Gravel Mastery XII"
+UpgradeDescription = "Collect Gravel Faster"
+RequirementType = [ 2 ]
+RequirementAmount = [ 450 ]
+TechCommand1 = 1
+TechCommand2 = "Gravel"
+
+[node name="SlimeBuddy2" type="Node2D" parent="VBoxContainer/Filters/ResourceList/Jobs/CollectGravel/Upgradeable"]
+position = Vector2( 0, 44 )
+script = ExtResource( 4 )
+UpgradeTitle = "Help Mushy the Slime"
+UpgradeDescription = "A nearby slime needs food"
+RequirementType = [ 2 ]
+RequirementAmount = [ 400 ]
+TechCommand1 = 3
+TechCommand2 = "Gravy"
+
+[node name="CollectMushroom" parent="VBoxContainer/Filters/ResourceList/Jobs" instance=ExtResource( 1 )]
+margin_top = 132.0
+margin_right = 400.0
+margin_bottom = 172.0
+rect_min_size = Vector2( 400, 40 )
+JobName = "Collect Mushroom"
+Duration = 3
+InnerJobName = "Mushroom"
+RewardType = 3
+Amount = 1
+
+[node name="Upgradeable" type="Node2D" parent="VBoxContainer/Filters/ResourceList/Jobs/CollectMushroom"]
+script = ExtResource( 5 )
+
+[node name="Lv1" type="Node2D" parent="VBoxContainer/Filters/ResourceList/Jobs/CollectMushroom/Upgradeable"]
+script = ExtResource( 4 )
+UpgradeTitle = "Mushroom Mastery I"
+UpgradeDescription = "Collect Mushrooms faster!"
+RequirementType = [ 3 ]
+RequirementAmount = [ 10 ]
+TechCommand1 = 1
+TechCommand2 = "Mushroom"
+
+[node name="SlimeBuddy" type="Node2D" parent="VBoxContainer/Filters/ResourceList/Jobs/CollectMushroom/Upgradeable"]
+script = ExtResource( 4 )
+UpgradeTitle = "Help Mushy the Slime"
+UpgradeDescription = "A nearby slime needs food"
+RequirementType = [ 3 ]
+RequirementAmount = [ 20 ]
+TechCommand1 = 3
+TechCommand2 = "Mushy"
+
+[node name="Lv2" type="Node2D" parent="VBoxContainer/Filters/ResourceList/Jobs/CollectMushroom/Upgradeable"]
+script = ExtResource( 4 )
+UpgradeTitle = "Mushroom Mastery II"
+UpgradeDescription = "Collect Mushrooms faster!"
+RequirementType = [ 3 ]
+RequirementAmount = [ 20 ]
+TechCommand1 = 1
+TechCommand2 = "Mushroom"
+
+[node name="Lv3" type="Node2D" parent="VBoxContainer/Filters/ResourceList/Jobs/CollectMushroom/Upgradeable"]
+script = ExtResource( 4 )
+UpgradeTitle = "Mushroom Mastery III"
+UpgradeDescription = "Collect Mushrooms faster!"
+RequirementType = [ 3 ]
+RequirementAmount = [ 50 ]
+TechCommand1 = 1
+TechCommand2 = "Mushroom"
+
+[node name="Lv4" type="Node2D" parent="VBoxContainer/Filters/ResourceList/Jobs/CollectMushroom/Upgradeable"]
+script = ExtResource( 4 )
+UpgradeTitle = "Mushroom Mastery IV"
+UpgradeDescription = "Collect Mushrooms faster!"
+RequirementType = [ 3 ]
+RequirementAmount = [ 80 ]
+TechCommand1 = 1
+TechCommand2 = "Mushroom"
+
+[node name="Lv5" type="Node2D" parent="VBoxContainer/Filters/ResourceList/Jobs/CollectMushroom/Upgradeable"]
+script = ExtResource( 4 )
+UpgradeTitle = "Mushroom Mastery V"
+UpgradeDescription = "Collect Mushrooms faster!"
+RequirementType = [ 3 ]
+RequirementAmount = [ 120 ]
+TechCommand1 = 1
+TechCommand2 = "Mushroom"
+
+[node name="Lv6" type="Node2D" parent="VBoxContainer/Filters/ResourceList/Jobs/CollectMushroom/Upgradeable"]
+script = ExtResource( 4 )
+UpgradeTitle = "Mushroom Mastery VI"
+UpgradeDescription = "Collect Mushrooms faster!"
+RequirementType = [ 3 ]
+RequirementAmount = [ 200 ]
+TechCommand1 = 1
+TechCommand2 = "Mushroom"
+
+[node name="Lv7" type="Node2D" parent="VBoxContainer/Filters/ResourceList/Jobs/CollectMushroom/Upgradeable"]
+script = ExtResource( 4 )
+UpgradeTitle = "Mushroom Mastery VII"
+UpgradeDescription = "Collect Mushrooms faster!"
+RequirementType = [ 3 ]
+RequirementAmount = [ 250 ]
+TechCommand1 = 1
+TechCommand2 = "Mushroom"
+
+[node name="Lv8" type="Node2D" parent="VBoxContainer/Filters/ResourceList/Jobs/CollectMushroom/Upgradeable"]
+script = ExtResource( 4 )
+UpgradeTitle = "Mushroom Mastery VIII"
+UpgradeDescription = "Collect Mushrooms faster!"
+RequirementType = [ 3 ]
+RequirementAmount = [ 300 ]
+TechCommand1 = 1
+TechCommand2 = "Mushroom"
+
+[node name="Lv9" type="Node2D" parent="VBoxContainer/Filters/ResourceList/Jobs/CollectMushroom/Upgradeable"]
+script = ExtResource( 4 )
+UpgradeTitle = "Mushroom Mastery IX"
+UpgradeDescription = "Collect Mushrooms faster!"
+RequirementType = [ 3 ]
+RequirementAmount = [ 350 ]
+TechCommand1 = 1
+TechCommand2 = "Mushroom"
+
+[node name="Lv10" type="Node2D" parent="VBoxContainer/Filters/ResourceList/Jobs/CollectMushroom/Upgradeable"]
+script = ExtResource( 4 )
+UpgradeTitle = "Mushroom Mastery X"
+UpgradeDescription = "Collect Mushrooms faster!"
+RequirementType = [ 3 ]
+RequirementAmount = [ 450 ]
+TechCommand1 = 1
+TechCommand2 = "Mushroom"
+
+[node name="CollectSmallFish" parent="VBoxContainer/Filters/ResourceList/Jobs" instance=ExtResource( 1 )]
+margin_top = 176.0
+margin_right = 400.0
+margin_bottom = 216.0
+rect_min_size = Vector2( 400, 40 )
+JobName = "Collect Small Fish"
+Duration = 8
+InnerJobName = "SmallFish"
+RewardType = 4
+Amount = 1
+
+[node name="Upgradeable" type="Node2D" parent="VBoxContainer/Filters/ResourceList/Jobs/CollectSmallFish"]
+script = ExtResource( 5 )
+
+[node name="Lv1" type="Node2D" parent="VBoxContainer/Filters/ResourceList/Jobs/CollectSmallFish/Upgradeable"]
+script = ExtResource( 4 )
+UpgradeTitle = "Fishing Mastery I"
+UpgradeDescription = "Collect Small Fish faster"
+RequirementType = [ 4 ]
+RequirementAmount = [ 10 ]
+TechCommand1 = 1
+TechCommand2 = "SmallFish"
+
+[node name="SlimeBuddy" type="Node2D" parent="VBoxContainer/Filters/ResourceList/Jobs/CollectSmallFish/Upgradeable"]
+script = ExtResource( 4 )
+UpgradeTitle = "Help Fischer the Slime"
+UpgradeDescription = "A nearby slime needs food"
+RequirementType = [ 4 ]
+RequirementAmount = [ 20 ]
+TechCommand1 = 3
+TechCommand2 = "Fischer"
+
+[node name="Lv2" type="Node2D" parent="VBoxContainer/Filters/ResourceList/Jobs/CollectSmallFish/Upgradeable"]
+script = ExtResource( 4 )
+UpgradeTitle = "Fishing Mastery II"
+UpgradeDescription = "Collect Small Fish faster"
+RequirementType = [ 4 ]
+RequirementAmount = [ 20 ]
+TechCommand1 = 1
+TechCommand2 = "SmallFish"
+
+[node name="Lv3" type="Node2D" parent="VBoxContainer/Filters/ResourceList/Jobs/CollectSmallFish/Upgradeable"]
+script = ExtResource( 4 )
+UpgradeTitle = "Fishing Mastery III"
+UpgradeDescription = "Collect Small Fish faster"
+RequirementType = [ 4 ]
+RequirementAmount = [ 50 ]
+TechCommand1 = 1
+TechCommand2 = "SmallFish"
+
+[node name="Lv4" type="Node2D" parent="VBoxContainer/Filters/ResourceList/Jobs/CollectSmallFish/Upgradeable"]
+script = ExtResource( 4 )
+UpgradeTitle = "Fishing Mastery IV"
+UpgradeDescription = "Collect Small Fish faster"
+RequirementType = [ 4 ]
+RequirementAmount = [ 75 ]
+TechCommand1 = 1
+TechCommand2 = "SmallFish"
+
+[node name="Lv5" type="Node2D" parent="VBoxContainer/Filters/ResourceList/Jobs/CollectSmallFish/Upgradeable"]
+script = ExtResource( 4 )
+UpgradeTitle = "Fishing Mastery V"
+UpgradeDescription = "Collect Small Fish faster"
+RequirementType = [ 4 ]
+RequirementAmount = [ 150 ]
+TechCommand1 = 1
+TechCommand2 = "SmallFish"
+
+[node name="Lv6" type="Node2D" parent="VBoxContainer/Filters/ResourceList/Jobs/CollectSmallFish/Upgradeable"]
+script = ExtResource( 4 )
+UpgradeTitle = "Fishing Mastery VI"
+UpgradeDescription = "Collect Small Fish faster"
+RequirementType = [ 4 ]
+RequirementAmount = [ 200 ]
+TechCommand1 = 1
+TechCommand2 = "SmallFish"
+
+[node name="Lv7" type="Node2D" parent="VBoxContainer/Filters/ResourceList/Jobs/CollectSmallFish/Upgradeable"]
+script = ExtResource( 4 )
+UpgradeTitle = "Fishing Mastery VII"
+UpgradeDescription = "Collect Small Fish faster"
+RequirementType = [ 4 ]
+RequirementAmount = [ 250 ]
+TechCommand1 = 1
+TechCommand2 = "SmallFish"
+
+[node name="Lv8" type="Node2D" parent="VBoxContainer/Filters/ResourceList/Jobs/CollectSmallFish/Upgradeable"]
+script = ExtResource( 4 )
+UpgradeTitle = "Fishing Mastery VIII"
+UpgradeDescription = "Collect Small Fish faster"
+RequirementType = [ 4 ]
+RequirementAmount = [ 300 ]
+TechCommand1 = 1
+TechCommand2 = "SmallFish"
+
+[node name="Lv9" type="Node2D" parent="VBoxContainer/Filters/ResourceList/Jobs/CollectSmallFish/Upgradeable"]
+script = ExtResource( 4 )
+UpgradeTitle = "Fishing Mastery IX"
+UpgradeDescription = "Collect Small Fish faster"
+RequirementType = [ 4 ]
+RequirementAmount = [ 400 ]
+TechCommand1 = 1
+TechCommand2 = "SmallFish"
+
+[node name="Lv10" type="Node2D" parent="VBoxContainer/Filters/ResourceList/Jobs/CollectSmallFish/Upgradeable"]
+script = ExtResource( 4 )
+UpgradeTitle = "Fishing Mastery X"
+UpgradeDescription = "Collect Small Fish faster"
+RequirementType = [ 4 ]
+RequirementAmount = [ 500 ]
+TechCommand1 = 1
+TechCommand2 = "SmallFish"
+
+[node name="Lv11" type="Node2D" parent="VBoxContainer/Filters/ResourceList/Jobs/CollectSmallFish/Upgradeable"]
+script = ExtResource( 4 )
+UpgradeTitle = "Fishing Proficiency I"
+UpgradeDescription = "Reduce Duration"
+RequirementType = [ 4 ]
+RequirementAmount = [ 500 ]
+TechCommand1 = 2
+TechCommand2 = "SmallFish"
+TechCommand3 = "6"
+
+[connection signal="button_down" from="VBoxContainer/CloseButton" to="." method="_on_CloseButton_button_down"]
+[connection signal="button_down" from="VBoxContainer/ButtonsContainer/ResourceGatheringButton" to="." method="_on_ResourceGatheringButton_button_down"]
+[connection signal="button_down" from="VBoxContainer/ButtonsContainer/DustingButton" to="." method="_on_DustingButton_button_down"]
+[connection signal="button_down" from="VBoxContainer/ButtonsContainer/CraftingButton" to="." method="_on_CraftingButton_button_down"]

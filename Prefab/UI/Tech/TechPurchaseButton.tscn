@@ -1,0 +1,165 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Scripts/UI/Tech/TechPurchaseButton.gd" type="Script" id=1]
+[ext_resource path="res://Font/UIFont.tres" type="Theme" id=2]
+[ext_resource path="res://Font/UIFontSmall.tres" type="Theme" id=3]
+[ext_resource path="res://Font/UIFontDescription.tres" type="Theme" id=4]
+
+[sub_resource type="Animation" id=1]
+resource_name = "Open"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0.109804 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+
+[sub_resource type="Animation" id=2]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_min_size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 260, 90 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rect_scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath(".:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath(".:rect_position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, -20 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("VBoxContainer:rect_position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 4, 4 ) ]
+}
+
+[node name="TechPurchase" type="Button"]
+show_behind_parent = true
+margin_top = -20.0
+margin_right = 260.0
+margin_bottom = 70.0
+rect_min_size = Vector2( 260, 90 )
+script = ExtResource( 1 )
+TechTitle = "Purchase Puppies"
+RequirementType = [ 0, 1 ]
+RequirementAmount = [ 1, 1 ]
+TechCommand2 = "Gravel"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_left = 4.0
+margin_top = 4.0
+margin_right = 265.0
+margin_bottom = 95.0
+rect_min_size = Vector2( 200, 50 )
+
+[node name="TechPurchaseDate" type="Label" parent="VBoxContainer"]
+margin_right = 261.0
+margin_bottom = 9.0
+theme = ExtResource( 3 )
+text = "Purchased on: 2022/07/11"
+
+[node name="TechTitle" type="Label" parent="VBoxContainer"]
+margin_top = 13.0
+margin_right = 261.0
+margin_bottom = 33.0
+rect_min_size = Vector2( 0, 20 )
+theme = ExtResource( 2 )
+text = "Slime Helper"
+autowrap = true
+
+[node name="TechDescription" type="Label" parent="VBoxContainer"]
+margin_top = 37.0
+margin_right = 261.0
+margin_bottom = 44.0
+theme = ExtResource( 4 )
+text = "Slime Helper"
+autowrap = true
+
+[node name="TechRequirements" type="Label" parent="VBoxContainer"]
+margin_top = 48.0
+margin_right = 261.0
+margin_bottom = 69.0
+theme = ExtResource( 3 )
+text = "1 wood
+2 stone"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+playback_speed = 11.09
+anims/Open = SubResource( 1 )
+anims/RESET = SubResource( 2 )
+
+[connection signal="button_down" from="." to="." method="_on_TechPurchase_button_down"]

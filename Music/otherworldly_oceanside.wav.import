@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/otherworldly_oceanside.wav-f06710a007a4e28ab1d9c8d98c493773.sample"
+
+[deps]
+
+source_file="res://Music/otherworldly_oceanside.wav"
+dest_files=[ "res://.import/otherworldly_oceanside.wav-f06710a007a4e28ab1d9c8d98c493773.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

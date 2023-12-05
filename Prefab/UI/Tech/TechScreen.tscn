@@ -1,0 +1,83 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Prefab/UI/Tech/TechPurchaseButton.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scripts/UI/Tech/TechScreen.gd" type="Script" id=2]
+[ext_resource path="res://Font/UIFontTitle.tres" type="Theme" id=3]
+[ext_resource path="res://Font/UIFontSmall.tres" type="Theme" id=4]
+
+[node name="Tech" type="Container" groups=["Tech"]]
+margin_left = 743.0
+margin_right = 1023.0
+margin_bottom = 1058.0
+rect_min_size = Vector2( 280, 0 )
+script = ExtResource( 2 )
+
+[node name="Panel" type="Panel" parent="."]
+modulate = Color( 1, 1, 1, 0.556863 )
+margin_right = 280.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 280, 1058 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 273.0
+margin_bottom = 1051.0
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+margin_right = 266.0
+margin_bottom = 17.0
+theme = ExtResource( 3 )
+text = "Upgrades"
+align = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+margin_top = 21.0
+margin_right = 266.0
+margin_bottom = 36.0
+
+[node name="AvailableButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+margin_right = 93.0
+margin_bottom = 15.0
+theme = ExtResource( 4 )
+text = "Available"
+
+[node name="PurchasedButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+margin_left = 97.0
+margin_right = 190.0
+margin_bottom = 15.0
+theme = ExtResource( 4 )
+text = "Purchased"
+
+[node name="AvailableContainer" type="VBoxContainer" parent="VBoxContainer"]
+margin_top = 40.0
+margin_right = 266.0
+margin_bottom = 540.0
+rect_min_size = Vector2( 240, 80 )
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/AvailableContainer"]
+margin_right = 266.0
+margin_bottom = 500.0
+rect_min_size = Vector2( 240, 500 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/AvailableContainer/ScrollContainer"]
+margin_right = 260.0
+margin_bottom = 90.0
+
+[node name="TechPurchase" parent="VBoxContainer/AvailableContainer/ScrollContainer/VBoxContainer" instance=ExtResource( 1 )]
+
+[node name="PurchasedContainer" type="VBoxContainer" parent="VBoxContainer"]
+margin_top = 544.0
+margin_right = 266.0
+margin_bottom = 1044.0
+rect_min_size = Vector2( 240, 80 )
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/PurchasedContainer"]
+margin_right = 266.0
+margin_bottom = 500.0
+rect_min_size = Vector2( 240, 500 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/PurchasedContainer/ScrollContainer"]
+
+[connection signal="button_down" from="VBoxContainer/HBoxContainer/AvailableButton" to="." method="_on_AvailableButton_button_down"]
+[connection signal="button_down" from="VBoxContainer/HBoxContainer/PurchasedButton" to="." method="_on_PurchasedButton_button_down"]

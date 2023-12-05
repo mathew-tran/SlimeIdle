@@ -1,0 +1,7 @@
+Sound:
+https://opengameart.org/content/gui-sound-effects
+Used:
+Click.wav
+Click2.wave
+misc_menu.wave
+misc_menu_2.wav

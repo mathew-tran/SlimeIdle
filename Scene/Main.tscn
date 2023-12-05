@@ -1,0 +1,519 @@
+[gd_scene load_steps=20 format=2]
+
+[ext_resource path="res://Prefab/Slime.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Prefab/UI/Slimes/SlimeScreen.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Prefab/UI/Inventory/InventoryScreen.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Prefab/UI/Tech/TechScreen.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scripts/Test/Tests.gd" type="Script" id=5]
+[ext_resource path="res://Scripts/Test/TestUpgrades.gd" type="Script" id=6]
+[ext_resource path="res://Scripts/UI/Inventory/Inventory.gd" type="Script" id=7]
+[ext_resource path="res://Scripts/Test/TestInventory.gd" type="Script" id=8]
+[ext_resource path="res://Scripts/Upgrades/Upgrade.gd" type="Script" id=9]
+[ext_resource path="res://Scripts/UI/Story.gd" type="Script" id=10]
+[ext_resource path="res://Scripts/Upgrades/Upgradeable.gd" type="Script" id=11]
+[ext_resource path="res://Scripts/Misc/SoundManager.gd" type="Script" id=12]
+[ext_resource path="res://Music/sunnyday.wav" type="AudioStream" id=13]
+[ext_resource path="res://Art/landscape.png" type="Texture" id=14]
+[ext_resource path="res://Font/UIFontTitle.tres" type="Theme" id=15]
+[ext_resource path="res://Font/UIFontSubTitle.tres" type="Theme" id=16]
+[ext_resource path="res://Font/UIFont.tres" type="Theme" id=17]
+[ext_resource path="res://Scripts/UI/Credits.gd" type="Script" id=18]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Node2D
+"
+
+[node name="RootNode" type="Node2D"]
+
+[node name="Landscape" type="Sprite" parent="."]
+position = Vector2( 530, 466 )
+texture = ExtResource( 14 )
+
+[node name="Slimes" type="Node2D" parent="." groups=["SlimeGroup"]]
+script = SubResource( 1 )
+
+[node name="Slime" parent="Slimes" instance=ExtResource( 1 )]
+
+[node name="Slime2" parent="Slimes" instance=ExtResource( 1 )]
+position = Vector2( 315, 171 )
+Name = "Jim"
+
+[node name="Slime3" parent="Slimes" instance=ExtResource( 1 )]
+position = Vector2( 315, 171 )
+Name = "George"
+
+[node name="Inventory" type="Node2D" parent="." groups=["Inventory"]]
+script = ExtResource( 7 )
+
+[node name="UI" type="Control" parent="."]
+margin_right = 1024.0
+margin_bottom = 600.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI"]
+margin_right = 1024.0
+margin_bottom = 600.0
+custom_constants/separation = 0
+
+[node name="Inventory" parent="UI/HBoxContainer" groups=["InventoryPanel"] instance=ExtResource( 3 )]
+
+[node name="Slime" parent="UI/HBoxContainer" groups=["SlimePanel"] instance=ExtResource( 2 )]
+margin_right = 750.0
+rect_min_size = Vector2( 500, 0 )
+
+[node name="Tech" parent="UI/HBoxContainer" groups=["TechPanel"] instance=ExtResource( 4 )]
+margin_left = 750.0
+margin_right = 1030.0
+margin_bottom = 600.0
+
+[node name="Tests" type="Node2D" parent="."]
+script = ExtResource( 5 )
+
+[node name="TestUpgrades" type="Node2D" parent="Tests"]
+script = ExtResource( 6 )
+
+[node name="TestInventory" type="Node2D" parent="Tests"]
+script = ExtResource( 8 )
+bIsEnabled = false
+bShowVerbose = false
+
+[node name="Story" type="Node2D" parent="."]
+script = ExtResource( 10 )
+
+[node name="StoryUpgrades" type="Node2D" parent="Story"]
+script = ExtResource( 11 )
+
+[node name="Lv1" type="Node2D" parent="Story/StoryUpgrades"]
+script = ExtResource( 9 )
+UpgradeTitle = "Story Begins.."
+UpgradeDescription = "Gather some wood, as you might need it later"
+RequirementType = [ 0 ]
+RequirementAmount = [ 5 ]
+TechCommand1 = 5
+
+[node name="Lv2" type="Node2D" parent="Story/StoryUpgrades"]
+script = ExtResource( 9 )
+UpgradeTitle = "A nearby slime looking for help"
+UpgradeDescription = "Give him some supplies"
+RequirementType = [ 0, 3 ]
+RequirementAmount = [ 10, 10 ]
+TechCommand1 = 3
+TechCommand2 = "Squish"
+
+[node name="DustingGravel" type="Node2D" parent="Story/StoryUpgrades"]
+script = ExtResource( 9 )
+UpgradeTitle = "Dust Gravel"
+UpgradeDescription = "Learn how to dust gravel!"
+RequirementType = [ 2 ]
+RequirementAmount = [ 100 ]
+TechCommand2 = "DustGravel"
+
+[node name="Slime Wizard I" type="Node2D" parent="Story/StoryUpgrades"]
+script = ExtResource( 9 )
+UpgradeTitle = "Helping an old Slime Wizard I"
+UpgradeDescription = "Give some dust to the Slime Wizard"
+RequirementType = [ 6 ]
+RequirementAmount = [ 30 ]
+TechCommand1 = 5
+TechCommand2 = "Squish"
+
+[node name="DustingStone" type="Node2D" parent="Story/StoryUpgrades"]
+script = ExtResource( 9 )
+UpgradeTitle = "Dust Stone"
+UpgradeDescription = "Learn how to dust stone"
+RequirementType = [ 1 ]
+RequirementAmount = [ 100 ]
+TechCommand2 = "DustStone"
+
+[node name="Slime Wizard II" type="Node2D" parent="Story/StoryUpgrades"]
+script = ExtResource( 9 )
+UpgradeTitle = "Helping an old Slime Wizard II"
+UpgradeDescription = "Give some dust to the Slime Wizard"
+RequirementType = [ 6 ]
+RequirementAmount = [ 60 ]
+TechCommand1 = 5
+TechCommand2 = "Squish"
+
+[node name="DustingWood" type="Node2D" parent="Story/StoryUpgrades"]
+script = ExtResource( 9 )
+UpgradeTitle = "Dust Wood"
+UpgradeDescription = "Learn how to dust wood!"
+RequirementType = [ 0 ]
+RequirementAmount = [ 100 ]
+TechCommand2 = "DustWood"
+
+[node name="Slime Wizard III" type="Node2D" parent="Story/StoryUpgrades"]
+script = ExtResource( 9 )
+UpgradeTitle = "Helping an old Slime Wizard III"
+UpgradeDescription = "Give some dust to the Slime Wizard. This time he will give you his pupil."
+RequirementType = [ 6 ]
+RequirementAmount = [ 60 ]
+TechCommand1 = 3
+TechCommand2 = "Wizzy"
+
+[node name="DustingMushroom" type="Node2D" parent="Story/StoryUpgrades"]
+script = ExtResource( 9 )
+UpgradeTitle = "Dust Mushroom"
+UpgradeDescription = "Learn how to dust wood!"
+RequirementType = [ 3 ]
+RequirementAmount = [ 100 ]
+TechCommand2 = "DustMushroom"
+
+[node name="ToGravel" type="Node2D" parent="Story/StoryUpgrades"]
+script = ExtResource( 9 )
+UpgradeTitle = "Transmute Gravel"
+UpgradeDescription = "Learn how to transmute gravel using dust"
+RequirementType = [ 2 ]
+RequirementAmount = [ 50 ]
+TechCommand2 = "ToGravel"
+
+[node name="ToPaper" type="Node2D" parent="Story/StoryUpgrades"]
+script = ExtResource( 9 )
+UpgradeTitle = "Transmute Paper"
+UpgradeDescription = "Learn how to transmute paper using dust"
+RequirementType = [ 5 ]
+RequirementAmount = [ 50 ]
+TechCommand2 = "ToPaper"
+
+[node name="ToCutStone" type="Node2D" parent="Story/StoryUpgrades"]
+script = ExtResource( 9 )
+UpgradeTitle = "Transmute Paper"
+UpgradeDescription = "Learn how to transmute paper using dust"
+RequirementType = [ 7 ]
+RequirementAmount = [ 50 ]
+TechCommand2 = "ToCutStone"
+
+[node name="HungrySlimesI" type="Node2D" parent="Story/StoryUpgrades"]
+script = ExtResource( 9 )
+UpgradeTitle = "Hungry Slimes I"
+UpgradeDescription = "Slimes nearby need food to eat!"
+RequirementType = [ 3 ]
+RequirementAmount = [ 50 ]
+TechCommand1 = 5
+TechCommand2 = "Neighborino"
+
+[node name="Lv3" type="Node2D" parent="Story/StoryUpgrades"]
+script = ExtResource( 9 )
+UpgradeTitle = "Collect food for travel"
+UpgradeDescription = "Collect food to find a nice spot for your castle"
+RequirementType = [ 3, 4 ]
+RequirementAmount = [ 30, 30 ]
+TechCommand1 = 5
+TechCommand2 = "Squish"
+
+[node name="Lv4" type="Node2D" parent="Story/StoryUpgrades"]
+script = ExtResource( 9 )
+UpgradeTitle = "Start building a castle"
+UpgradeDescription = "Need to get papers to make blueprints!"
+RequirementType = [ 5 ]
+RequirementAmount = [ 50 ]
+TechCommand1 = 5
+TechCommand2 = "Squish"
+
+[node name="Lv5" type="Node2D" parent="Story/StoryUpgrades"]
+script = ExtResource( 9 )
+UpgradeTitle = "Building the base of the castle"
+UpgradeDescription = "We need to get lots of stone and gravel to build the base of the castle!"
+RequirementType = [ 1, 2 ]
+RequirementAmount = [ 280, 280 ]
+TechCommand1 = 5
+TechCommand2 = "Squish"
+
+[node name="Lv6" type="Node2D" parent="Story/StoryUpgrades"]
+script = ExtResource( 9 )
+UpgradeTitle = "Building out inner structures for castle"
+UpgradeDescription = "We need lots of wood for miscellaneous things inside the castle!"
+RequirementType = [ 0 ]
+RequirementAmount = [ 600 ]
+TechCommand1 = 5
+TechCommand2 = "Squish"
+
+[node name="HungrySlimesII" type="Node2D" parent="Story/StoryUpgrades"]
+script = ExtResource( 9 )
+UpgradeTitle = "Hungry Slimes II"
+UpgradeDescription = "Slimes nearby need food to eat!"
+RequirementType = [ 3, 4 ]
+RequirementAmount = [ 300, 300 ]
+TechCommand1 = 5
+TechCommand2 = "Neighborino"
+
+[node name="Lv7" type="Node2D" parent="Story/StoryUpgrades"]
+script = ExtResource( 9 )
+UpgradeTitle = "Build the Castle Walls"
+UpgradeDescription = "Need some cut stone for this one. "
+RequirementType = [ 7 ]
+RequirementAmount = [ 80 ]
+TechCommand1 = 5
+TechCommand2 = "Squish"
+
+[node name="Lv8" type="Node2D" parent="Story/StoryUpgrades"]
+script = ExtResource( 9 )
+UpgradeTitle = "Good Neighbour I"
+UpgradeDescription = "A neighbouring town needs some supplies!"
+RequirementType = [ 1, 0, 2, 3 ]
+RequirementAmount = [ 80, 50, 50, 50 ]
+TechCommand1 = 3
+TechCommand2 = "Neighborino"
+
+[node name="Lv9" type="Node2D" parent="Story/StoryUpgrades"]
+script = ExtResource( 9 )
+UpgradeTitle = "Good Neighbour II"
+UpgradeDescription = "Yet another neighbouring town needs some supplies!"
+RequirementType = [ 4, 7, 6, 1 ]
+RequirementAmount = [ 80, 50, 50, 50 ]
+TechCommand1 = 3
+TechCommand2 = "Ned"
+
+[node name="SoundManager" type="Node2D" parent="." groups=["SoundManager"]]
+script = ExtResource( 12 )
+
+[node name="Button" type="Button" parent="SoundManager"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 917.0
+margin_top = 575.0
+margin_right = 1002.0
+margin_bottom = 595.0
+text = "SOUND ON"
+
+[node name="SoundChannels" type="Node2D" parent="SoundManager"]
+
+[node name="SoundChannel1" type="AudioStreamPlayer2D" parent="SoundManager/SoundChannels"]
+
+[node name="SoundChannel2" type="AudioStreamPlayer2D" parent="SoundManager/SoundChannels"]
+
+[node name="SoundChannel3" type="AudioStreamPlayer2D" parent="SoundManager/SoundChannels"]
+
+[node name="SoundChannel4" type="AudioStreamPlayer2D" parent="SoundManager/SoundChannels"]
+
+[node name="SoundChannel5" type="AudioStreamPlayer2D" parent="SoundManager/SoundChannels"]
+
+[node name="SoundChannel6" type="AudioStreamPlayer2D" parent="SoundManager/SoundChannels"]
+
+[node name="SoundChannel7" type="AudioStreamPlayer2D" parent="SoundManager/SoundChannels"]
+
+[node name="SoundChannel8" type="AudioStreamPlayer2D" parent="SoundManager/SoundChannels"]
+
+[node name="SoundChannel9" type="AudioStreamPlayer2D" parent="SoundManager/SoundChannels"]
+
+[node name="SoundChannel10" type="AudioStreamPlayer2D" parent="SoundManager/SoundChannels"]
+
+[node name="SoundChannel11" type="AudioStreamPlayer2D" parent="SoundManager/SoundChannels"]
+
+[node name="SoundChannel12" type="AudioStreamPlayer2D" parent="SoundManager/SoundChannels"]
+
+[node name="SoundChannel13" type="AudioStreamPlayer2D" parent="SoundManager/SoundChannels"]
+
+[node name="SoundChannel14" type="AudioStreamPlayer2D" parent="SoundManager/SoundChannels"]
+
+[node name="SoundChannel15" type="AudioStreamPlayer2D" parent="SoundManager/SoundChannels"]
+
+[node name="SoundChannel16" type="AudioStreamPlayer2D" parent="SoundManager/SoundChannels"]
+
+[node name="SoundChannel17" type="AudioStreamPlayer2D" parent="SoundManager/SoundChannels"]
+
+[node name="SoundChannel18" type="AudioStreamPlayer2D" parent="SoundManager/SoundChannels"]
+
+[node name="SoundChannel19" type="AudioStreamPlayer2D" parent="SoundManager/SoundChannels"]
+
+[node name="SoundChannel20" type="AudioStreamPlayer2D" parent="SoundManager/SoundChannels"]
+
+[node name="SoundChannel21" type="AudioStreamPlayer2D" parent="SoundManager/SoundChannels"]
+
+[node name="SoundChannel22" type="AudioStreamPlayer2D" parent="SoundManager/SoundChannels"]
+
+[node name="SoundChannel23" type="AudioStreamPlayer2D" parent="SoundManager/SoundChannels"]
+
+[node name="SoundChannel24" type="AudioStreamPlayer2D" parent="SoundManager/SoundChannels"]
+
+[node name="SoundChannel25" type="AudioStreamPlayer2D" parent="SoundManager/SoundChannels"]
+
+[node name="SoundChannel26" type="AudioStreamPlayer2D" parent="SoundManager/SoundChannels"]
+
+[node name="SoundChannel27" type="AudioStreamPlayer2D" parent="SoundManager/SoundChannels"]
+
+[node name="SoundChannel28" type="AudioStreamPlayer2D" parent="SoundManager/SoundChannels"]
+
+[node name="SoundChannel29" type="AudioStreamPlayer2D" parent="SoundManager/SoundChannels"]
+
+[node name="SoundChannel30" type="AudioStreamPlayer2D" parent="SoundManager/SoundChannels"]
+
+[node name="SoundChannel31" type="AudioStreamPlayer2D" parent="SoundManager/SoundChannels"]
+
+[node name="SoundChannel32" type="AudioStreamPlayer2D" parent="SoundManager/SoundChannels"]
+
+[node name="SoundChannel33" type="AudioStreamPlayer2D" parent="SoundManager/SoundChannels"]
+
+[node name="SoundChannel34" type="AudioStreamPlayer2D" parent="SoundManager/SoundChannels"]
+
+[node name="SoundChannel35" type="AudioStreamPlayer2D" parent="SoundManager/SoundChannels"]
+
+[node name="SoundChannel36" type="AudioStreamPlayer2D" parent="SoundManager/SoundChannels"]
+
+[node name="SoundChannel37" type="AudioStreamPlayer2D" parent="SoundManager/SoundChannels"]
+
+[node name="SoundChannel38" type="AudioStreamPlayer2D" parent="SoundManager/SoundChannels"]
+
+[node name="MusicChannel" type="AudioStreamPlayer2D" parent="SoundManager"]
+stream = ExtResource( 13 )
+volume_db = -24.857
+autoplay = true
+
+[node name="MusicTimer" type="Timer" parent="SoundManager"]
+wait_time = 10.0
+one_shot = true
+
+[node name="Credits" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+script = ExtResource( 18 )
+
+[node name="CreditsButton" type="Button" parent="Credits"]
+margin_left = 850.0
+margin_top = 574.0
+margin_right = 907.0
+margin_bottom = 594.0
+text = "Credits"
+
+[node name="Panel" type="Panel" parent="Credits"]
+visible = false
+margin_left = 245.0
+margin_top = 57.0
+margin_right = 764.0
+margin_bottom = 470.0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Credits/Panel"]
+margin_left = 11.0
+margin_top = 8.0
+margin_right = 516.0
+margin_bottom = 405.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Credits/Panel/ScrollContainer"]
+margin_right = 400.0
+margin_bottom = 1032.0
+rect_min_size = Vector2( 400, 400 )
+custom_constants/separation = 40
+
+[node name="Credits Label" type="Label" parent="Credits/Panel/ScrollContainer/VBoxContainer"]
+margin_right = 400.0
+margin_bottom = 17.0
+theme = ExtResource( 15 )
+text = "CREDITS"
+
+[node name="Music Heading" type="Label" parent="Credits/Panel/ScrollContainer/VBoxContainer"]
+margin_top = 57.0
+margin_right = 400.0
+margin_bottom = 68.0
+theme = ExtResource( 17 )
+text = "MUSIC"
+autowrap = true
+
+[node name="Day 7" type="Label" parent="Credits/Panel/ScrollContainer/VBoxContainer"]
+margin_top = 108.0
+margin_right = 400.0
+margin_bottom = 215.0
+theme = ExtResource( 16 )
+text = "Title: Otherworldly Oceanside - Day 7
+
+Author: Zane Little Music
+
+URL:     https://opengameart.org/content/otherworldly-oceanside-day-7
+
+License(s):     * CC0 ( http://creativecommons.org/publicdomain/zero/1.0/legalcode )"
+autowrap = true
+
+[node name="StumbleAround" type="Label" parent="Credits/Panel/ScrollContainer/VBoxContainer"]
+margin_top = 255.0
+margin_right = 400.0
+margin_bottom = 342.0
+theme = ExtResource( 16 )
+text = "Title: Stumble Around
+
+Author: Zane Little Music
+
+URL:     https://opengameart.org/content/stumble-around
+
+License(s):     * CC0 ( http://creativecommons.org/publicdomain/zero/1.0/legalcode )"
+autowrap = true
+
+[node name="Sunny Day 6" type="Label" parent="Credits/Panel/ScrollContainer/VBoxContainer"]
+margin_top = 382.0
+margin_right = 400.0
+margin_bottom = 469.0
+theme = ExtResource( 16 )
+text = "Title: Sunny Day - Day 6
+
+Author: Zane Little Music
+
+URL:     https://opengameart.org/content/sunny-day-day-6
+
+License(s):     * CC0 ( http://creativecommons.org/publicdomain/zero/1.0/legalcode )"
+autowrap = true
+
+[node name="FX Heading" type="Label" parent="Credits/Panel/ScrollContainer/VBoxContainer"]
+margin_top = 509.0
+margin_right = 400.0
+margin_bottom = 520.0
+theme = ExtResource( 17 )
+text = "SOUND"
+autowrap = true
+
+[node name="Slimes Art2" type="Label" parent="Credits/Panel/ScrollContainer/VBoxContainer"]
+margin_top = 560.0
+margin_right = 400.0
+margin_bottom = 697.0
+theme = ExtResource( 16 )
+text = "Title: GUI Sound Effects
+- Click.wav
+- Click2.wav
+- misc_menu.wav
+- misc_menu_2.wav
+
+Author: stealthix
+
+URL:     https://opengameart.org/content/gui-sound-effects
+
+License(s):     * CC0 ( http://creativecommons.org/publicdomain/zero/1.0/legalcode )"
+autowrap = true
+
+[node name="Art Heading" type="Label" parent="Credits/Panel/ScrollContainer/VBoxContainer"]
+margin_top = 737.0
+margin_right = 400.0
+margin_bottom = 748.0
+theme = ExtResource( 17 )
+text = "ART"
+autowrap = true
+
+[node name="Slimes Art" type="Label" parent="Credits/Panel/ScrollContainer/VBoxContainer"]
+margin_top = 788.0
+margin_right = 400.0
+margin_bottom = 885.0
+theme = ExtResource( 16 )
+text = "Title: 16 x 16 Animated Slimes
+
+Author: stealthix
+
+URL:     https://opengameart.org/content/16x16-animated-slimes
+
+License(s):     * CC0 ( http://creativecommons.org/publicdomain/zero/1.0/legalcode )"
+autowrap = true
+
+[node name="Landscape" type="Label" parent="Credits/Panel/ScrollContainer/VBoxContainer"]
+margin_top = 925.0
+margin_right = 400.0
+margin_bottom = 1032.0
+theme = ExtResource( 16 )
+text = "Title: Seamless HD landscape in parts
+
+Author: PWL
+
+URL:     https://opengameart.org/content/seamless-hd-landscape-in-parts
+
+License(s):     * CC0 ( http://creativecommons.org/publicdomain/zero/1.0/legalcode )"
+autowrap = true
+
+[connection signal="button_down" from="SoundManager/Button" to="SoundManager" method="_on_Button_button_down"]
+[connection signal="finished" from="SoundManager/MusicChannel" to="SoundManager" method="_on_MusicChannel_finished"]
+[connection signal="timeout" from="SoundManager/MusicTimer" to="SoundManager" method="_on_MusicTimer_timeout"]
+[connection signal="button_down" from="Credits/CreditsButton" to="Credits" method="_on_CreditsButton_button_down"]
